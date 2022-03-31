@@ -65,3 +65,25 @@ body {
         padding: 0.25em 0.75em;
     }
 }
+
+.progress {
+    display: flex;
+    flex-direction: row;
+    height: 20%;
+}
+.progress-item {
+    border-radius: 33px;
+    background-color: var(--concrete);
+    border: 1px solid var(--cocoa);
+    width: 20px;
+    height: 20px;
+    margin: 0 5px;
+}
+
+.in-progress {
+    background-color: var(--apricot);
+}
+
+.done {
+    background-color: var(--blue-bayoux);
+}
