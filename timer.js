@@ -1,7 +1,11 @@
+const WORK_SECONDS = 1500; //25 mins in seconds
+const BREAK_SECONDS = 300; //5 mins in seconds
+
 class Timer {
     // https://stackoverflow.com/a/57981688
     constructor() {
         this.isRunning = false;
+        this.isWork = true; // either work or break
         this.startTime = 0;
         this.overallTime = 0;
     }
@@ -66,16 +70,28 @@ class Timer {
 
         return this.overallTime;
     }
+
+    getInterval() {
+        if (this.isWork) {
+            this.isWork = !this.isWork;
+            return this.isWork;
+        }
+    }
 }
 
 const timer = new Timer();
 
 setInterval(() => {
     const timeInSeconds = Math.round(timer.getTime() / 1000);
-    const startTime = 1500; //25 mins in seconds
-    document.getElementById("timer").innerText = timer._convertToMinutesSeconds(
-        startTime - timeInSeconds
-    );
+    let secondsDisplay = WORK_SECONDS - timeInSeconds;
+
+    // reached end of timer
+    if (secondsDisplay === 0) {
+        timer.stop();
+        timer.reset();
+    }
+
+    document.getElementById("timer").innerText = timer._convertToMinutesSeconds(secondsDisplay);
 }, 100);
 
 const startBtn = document.getElementById("start");
