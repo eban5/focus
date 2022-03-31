@@ -1,0 +1,32 @@
+<!--index.html-->
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+    <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+    <title>Hello World!</title>
+    <link rel="stylesheet" href="index.css">
+
+</head>
+
+<body>
+    <div>focus</div>
+    <div id="timer" class="timer"></div>
+    <div class="buttons">
+        <button id="start" class="btn">Start</button>
+        <button id="stop" class="btn">Stop</button>
+        <button id="reset" class="btn">Reset</button>
+    </div>
+    <div class="skip">
+        <button id="skip" class="btn btn-secondary">skip</button>
+    </div>
+
+    <!-- You can also require other files to run in this process -->
+    <script src="./timer.js"></script>
+</body>
+
+</html>
