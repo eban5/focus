@@ -1,21 +1,29 @@
 // webpack.config.js
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+
 module.exports = [
     {
         mode: "development",
-        entry: "./src/main.ts",
-        target: "electron-main",
+        entry: "./src/react.tsx",
+        target: "electron-renderer",
+        devtool: "source-map",
         module: {
             rules: [
                 {
-                    test: /\.ts$/,
+                    test: /\.ts(x?)$/,
                     include: /src/,
                     use: [{ loader: "ts-loader" }],
                 },
             ],
         },
         output: {
-            path: __dirname + "/src",
-            filename: "main.js",
-        },
+            path: __dirname + '/dist',
+            filename: 'main.js'
+          },        
+        plugins: [
+            new HtmlWebpackPlugin({
+                template: "./src/index.html",
+            }),
+        ],
     },
 ];
