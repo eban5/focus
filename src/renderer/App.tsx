@@ -2,13 +2,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect } from 'react';
 import { MemoryRouter as Router, Routes, Route } from 'react-router-dom';
-// import icon from '../../assets/focus-wordmark.png';
 import './App.css';
 import Progress from './Progress';
 import Timer from './Timer';
 
-const WORK_SECONDS = 1500; // 25 mins in seconds
-// const BREAK_SECONDS = 300; // 5 mins in seconds
+const WORK_SECONDS = 10; // 25 mins in seconds
+const BREAK_SECONDS = 5; // 5 mins in seconds
 const intervals = [
   'work',
   'break',
@@ -28,6 +27,8 @@ const Hello = () => {
   const [isRunning, setIsRunning] = useState<boolean>(false);
   const [startTime, setStartTime] = useState<number>(0);
   const [overallTime, setOverallTime] = useState<number>(0);
+  const [currentInterval, setCurrentInterval] = useState<number>(5);
+  const [isComplete, setIsComplete] = useState<boolean>(false);
 
   const padTo2Digits = (num: number) => {
     return num.toString().padStart(2, '0');
@@ -72,7 +73,37 @@ const Hello = () => {
     }
 
     setStartTime(0);
-    setTimer('00:00');
+  };
+
+  const complete = (): void => {
+    setIsComplete(true);
+    setIsRunning(false);
+  };
+
+  const getInterval = (): string => {
+    return intervals[currentInterval];
+  };
+
+  const nextInterval = (): void => {
+    // reached end of work
+    if (currentInterval === 9) {
+      complete();
+      return;
+    }
+
+    // at the start of the next interval, the clock is not running
+    setIsRunning(false);
+    setCurrentInterval(currentInterval + 1);
+    stop(startTime, overallTime);
+    reset();
+  };
+
+  const startOver = (): void => {
+    // reset everything
+    setIsRunning(false);
+    setCurrentInterval(0);
+    reset();
+    setIsComplete(false);
   };
 
   const getTime = (): number => {
@@ -82,54 +113,75 @@ const Hello = () => {
   };
 
   useEffect(() => {
-    setInterval(() => {
+    const interval = setInterval(() => {
       const timeInSeconds = Math.round(getTime() / 1000);
-      const secondsDisplay = WORK_SECONDS - timeInSeconds;
+      const secondsDisplay =
+        getInterval() === 'work'
+          ? WORK_SECONDS - timeInSeconds
+          : BREAK_SECONDS - timeInSeconds;
 
       // reached end of timer
-      if (secondsDisplay === 0) {
-        stop(startTime, overallTime);
-        reset();
-      }
+      if (secondsDisplay === 0) nextInterval();
 
       setTimer(convertToMinutesSeconds(secondsDisplay));
     }, 100);
 
     return () => {
-      clearInterval();
+      clearInterval(interval);
     };
-  }, [start, stop]);
+  }, [start]);
 
   return (
     <div className="wrapper">
-      {/* <img width="90px" alt="icon" src={icon} /> */}
-      <Progress intervals={intervals} />
+      <Progress
+        intervals={intervals}
+        currentInterval={currentInterval}
+        isComplete={isComplete}
+      />
 
-      <Timer time={timer} />
-      <div className="buttons">
-        <button id="start" className="btn" type="button" onClick={start}>
-          Start
-        </button>
-        <button
-          id="stop"
-          className="btn"
-          type="button"
-          onClick={() => stop(startTime, overallTime)}
-        >
-          Stop
-        </button>
-        <button id="reset" className="btn" type="button" onClick={reset}>
-          Reset
-        </button>
-      </div>
-      <div className="skip">
-        <button id="skip" className="btn btn-secondary" type="button">
-          skip
-        </button>
-      </div>
-
-      {/* <script src="./timer.js"></script>
-    <script src="./progress.js"></script> */}
+      {isComplete ? (
+        <div>
+          All done!
+          <button
+            id="startOver"
+            className="btn btn-secondary"
+            type="button"
+            onClick={startOver}
+          >
+            start over
+          </button>
+        </div>
+      ) : (
+        <>
+          <Timer time={timer} />
+          <div className="buttons">
+            <button id="start" className="btn" type="button" onClick={start}>
+              Start
+            </button>
+            <button
+              id="stop"
+              className="btn"
+              type="button"
+              onClick={() => stop(startTime, overallTime)}
+            >
+              Stop
+            </button>
+            <button id="reset" className="btn" type="button" onClick={reset}>
+              Reset
+            </button>
+          </div>
+          <div className="skip">
+            <button
+              id="skip"
+              className="btn btn-secondary"
+              type="button"
+              onClick={nextInterval}
+            >
+              skip
+            </button>
+          </div>
+        </>
+      )}
     </div>
   );
 };
