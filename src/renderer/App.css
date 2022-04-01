@@ -1,0 +1,140 @@
+/*
+ * @NOTE: Prepend a `~` to css file paths that are in your node_modules
+ *        See https://github.com/webpack-contrib/sass-loader#imports
+ */
+
+:root {
+  --nepal: #94abbd;
+  --blue-bayoux: #556e84;
+  --concrete: #f3f3f3;
+  --apricot: #e5926c;
+  --cocoa: #362827;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@300;400;500;700&display=swap');
+
+body {
+  position: relative;
+  color: var(--concrete);
+  height: 100vh;
+  font-family: 'Zen Kaku Gothic New', sans-serif;
+  font-size: 2rem;
+  background: linear-gradient(
+    200.96deg,
+    var(--nepal) -29.09%,
+    var(--nepal) 51.77%,
+    var(--blue-bayoux) 129.35%
+  );
+
+  overflow-y: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  /* width: 100vw;
+height: 100vh; */
+}
+
+button {
+  background-color: white;
+  padding: 10px 20px;
+  border-radius: 10px;
+  border: none;
+  appearance: none;
+  font-size: 1.3rem;
+  box-shadow: 0px 8px 28px -6px rgba(24, 39, 75, 0.12),
+    0px 18px 88px -4px rgba(24, 39, 75, 0.14);
+  transition: all ease-in 0.1s;
+  cursor: pointer;
+  opacity: 0.9;
+}
+
+button:hover {
+  transform: scale(1.05);
+  opacity: 1;
+}
+
+li {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  height: fit-content;
+  width: fit-content;
+  margin: 10px;
+}
+
+a:hover {
+  opacity: 1;
+  text-decoration: none;
+}
+
+.timer {
+  font-weight: 700;
+  font-size: 5rem;
+  margin: 2rem;
+}
+
+.btn {
+  font-family: 'Zen Kaku Gothic New', sans-serif;
+  font-size: 1.6rem;
+  letter-spacing: 2px;
+  text-decoration: none;
+  text-transform: uppercase;
+  color: var(--cocoa);
+  cursor: pointer;
+  border: 3px solid;
+  padding: 0.25em 0.5em;
+  box-shadow: 1px 1px 0px 0px, 2px 2px 0px 0px, 3px 3px 0px 0px, 4px 4px 0px 0px,
+    5px 5px 0px 0px;
+  position: relative;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.btn-secondary {
+  background: none;
+  border: none;
+  box-shadow: none;
+  color: var(--concrete);
+  font-weight: 700;
+  text-transform: none;
+  margin: 2rem;
+}
+
+.btn:active {
+  box-shadow: 0px 0px 0px 0px;
+  top: 5px;
+  left: 5px;
+}
+
+@media (min-width: 768px) {
+  .btn {
+    padding: 0.25em 0.75em;
+  }
+}
+
+.progress {
+  display: flex;
+  flex-direction: row;
+  height: 20%;
+}
+.progress-item {
+  border-radius: 33px;
+  background-color: var(--concrete);
+  border: 1px solid var(--cocoa);
+  width: 20px;
+  height: 20px;
+  margin: 0 5px;
+}
+
+.in-progress {
+  background-color: var(--apricot);
+}
+
+.done {
+  background-color: var(--blue-bayoux);
+}
