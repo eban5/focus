@@ -122,10 +122,16 @@ a:hover {
   flex-direction: row;
   height: 20%;
 }
+
 .progress-item {
-  border-radius: 33px;
+  border-radius: 50%;
   background-color: var(--concrete);
   border: 1px solid var(--cocoa);
+  /* box-shadow: 1px 1px 0px 0px, 2px 2px 0px 0px, 3px 3px 0px 0px, 4px 4px 0px 0px,
+    5px 5px 0px 0px var(--cocoa); */
+  /* box-shadow: 0 0 98px 6px rgba(0, 0, 0, 0.2); */
+  box-shadow: 5px 4px rgba(0,0,0,0.6);
+   -moz-box-shadow: 10px -10px rgba(0,0,0,0.6);
   width: 20px;
   height: 20px;
   margin: 0 5px;
