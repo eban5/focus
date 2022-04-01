@@ -7,7 +7,7 @@ import Progress from './Progress';
 import Timer from './Timer';
 
 const WORK_SECONDS = 1500; // 25 mins in seconds
-const BREAK_SECONDS = 300; // 5 mins in seconds
+// const BREAK_SECONDS = 300; // 5 mins in seconds
 const intervals = [
   'work',
   'break',

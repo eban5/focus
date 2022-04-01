@@ -8,7 +8,7 @@ const Progress = (props: { intervals: string[] }) => {
             // eslint-disable-next-line react/no-array-index-key
             key={`item-${idx}`}
             data-interval={idx}
-            className="progress-item"
+            className={`progress-item ${item}`}
           />
         );
       })}
