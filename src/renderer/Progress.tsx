@@ -3,7 +3,14 @@ const Progress = (props: { intervals: string[] }) => {
   return (
     <div id="progress" className="progress">
       {intervals.map((item: string, idx: number) => {
-        return <div key={item} data-interval={idx} className="progress-item" />;
+        return (
+          <div
+            // eslint-disable-next-line react/no-array-index-key
+            key={`item-${idx}`}
+            data-interval={idx}
+            className="progress-item"
+          />
+        );
       })}
     </div>
   );

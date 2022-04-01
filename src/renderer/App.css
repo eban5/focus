@@ -16,13 +16,12 @@
 body {
   position: relative;
   color: var(--concrete);
-  height: 100vh;
   font-family: 'Zen Kaku Gothic New', sans-serif;
   font-size: 2rem;
   background: linear-gradient(
     200.96deg,
     var(--nepal) -29.09%,
-    var(--nepal) 51.77%,
+    var(--blue-bayoux) 51.77%,
     var(--blue-bayoux) 129.35%
   );
 
@@ -32,8 +31,14 @@ body {
   justify-content: center;
   align-items: center;
 
-  /* width: 100vw;
-height: 100vh; */
+  width: 100vw;
+  height: 100vh;
+}
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 button {
@@ -130,8 +135,8 @@ a:hover {
   /* box-shadow: 1px 1px 0px 0px, 2px 2px 0px 0px, 3px 3px 0px 0px, 4px 4px 0px 0px,
     5px 5px 0px 0px var(--cocoa); */
   /* box-shadow: 0 0 98px 6px rgba(0, 0, 0, 0.2); */
-  box-shadow: 5px 4px rgba(0,0,0,0.6);
-   -moz-box-shadow: 10px -10px rgba(0,0,0,0.6);
+  box-shadow: 5px 4px rgba(0, 0, 0, 0.6);
+  -moz-box-shadow: 10px -10px rgba(0, 0, 0, 0.6);
   width: 20px;
   height: 20px;
   margin: 0 5px;

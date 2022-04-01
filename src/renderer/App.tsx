@@ -38,9 +38,9 @@ const Hello = () => {
     return `${padTo2Digits(minutes)}:${padTo2Digits(seconds)}`;
   };
 
-  const getTimeElapsedSinceLastStart = () => {
-    if (!startTime) return 0;
-    return Date.now() - startTime;
+  const getTimeElapsedSinceLastStart = (timeStart: number) => {
+    if (!timeStart) return 0;
+    return Date.now() - timeStart;
   };
 
   const start = (): void => {
@@ -52,15 +52,14 @@ const Hello = () => {
     setStartTime(Date.now());
   };
 
-  const stop = (): void => {
+  const stop = (timeStart: number, timeOverall: number): void => {
     if (!isRunning) {
       console.error('Timer is already stopped');
       return;
     }
 
     setIsRunning(false);
-
-    setOverallTime(overallTime + getTimeElapsedSinceLastStart());
+    setOverallTime(timeOverall + getTimeElapsedSinceLastStart(timeStart));
   };
 
   const reset = (): void => {
@@ -72,11 +71,12 @@ const Hello = () => {
     }
 
     setStartTime(0);
+    setTimer('00:00');
   };
 
   const getTime = (): number => {
     if (!startTime) return 0;
-    if (isRunning) return overallTime + getTimeElapsedSinceLastStart();
+    if (isRunning) return overallTime + getTimeElapsedSinceLastStart(startTime);
     return overallTime;
   };
 
@@ -87,7 +87,7 @@ const Hello = () => {
 
       // reached end of timer
       if (secondsDisplay === 0) {
-        stop();
+        stop(startTime, overallTime);
         reset();
       }
 
@@ -97,7 +97,7 @@ const Hello = () => {
     return () => {
       clearInterval();
     };
-  }, []);
+  }, [start, stop]);
 
   return (
     <div className="wrapper">
@@ -106,18 +106,18 @@ const Hello = () => {
 
       <Timer time={timer} />
       <div className="buttons">
-        <button
-          id="start"
-          className="btn"
-          type="button"
-          onClick={() => start()}
-        >
+        <button id="start" className="btn" type="button" onClick={start}>
           Start
         </button>
-        <button id="stop" className="btn" type="button">
+        <button
+          id="stop"
+          className="btn"
+          type="button"
+          onClick={() => stop(startTime, overallTime)}
+        >
           Stop
         </button>
-        <button id="reset" className="btn" type="button">
+        <button id="reset" className="btn" type="button" onClick={reset}>
           Reset
         </button>
       </div>
