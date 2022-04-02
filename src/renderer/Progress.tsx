@@ -7,7 +7,7 @@ const Progress = (props: {
   return (
     <>
       {!isComplete && (
-        <div>
+        <div className="interval-name">
           {intervals[currentInterval].charAt(0).toUpperCase() +
             intervals[currentInterval].substring(1)}
         </div>
