@@ -21,13 +21,19 @@ const intervals = [
   'break',
 ];
 
+enum Interval {
+  WORK = 'work',
+  BREAK = 'break',
+  COMPLETE = 'complete',
+}
+
 const Hello = () => {
   // https://stackoverflow.com/a/57981688
   const [timer, setTimer] = useState<string>('0:00');
   const [isRunning, setIsRunning] = useState<boolean>(false);
   const [startTime, setStartTime] = useState<number>(0);
   const [overallTime, setOverallTime] = useState<number>(0);
-  const [currentInterval, setCurrentInterval] = useState<number>(5);
+  const [currentInterval, setCurrentInterval] = useState<number>(0);
   const [isComplete, setIsComplete] = useState<boolean>(false);
 
   const padTo2Digits = (num: number) => {
@@ -130,6 +136,26 @@ const Hello = () => {
       clearInterval(interval);
     };
   }, [start]);
+
+  useEffect(() => {
+    if (isComplete) {
+      document.body.classList.remove('work-interval');
+      document.body.classList.remove('break-interval');
+      document.body.classList.add('complete');
+    } else if (!isComplete) {
+      if (intervals[currentInterval] === Interval['WORK']) {
+        if (!document.body.classList.contains('work-interval')) {
+          document.body.classList.remove('break-interval');
+          document.body.classList.add('work-interval');
+        }
+      } else if (intervals[currentInterval] === Interval['BREAK']) {
+        if (!document.body.classList.contains('break-interval')) {
+          document.body.classList.remove('work-interval');
+          document.body.classList.add('break-interval');
+        }
+      }
+    }
+  }, [nextInterval]);
 
   return (
     <div className="wrapper">
