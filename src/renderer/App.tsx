@@ -143,12 +143,12 @@ const Hello = () => {
       document.body.classList.remove('break-interval');
       document.body.classList.add('complete');
     } else if (!isComplete) {
-      if (intervals[currentInterval] === Interval['WORK']) {
+      if (intervals[currentInterval] === Interval.WORK) {
         if (!document.body.classList.contains('work-interval')) {
           document.body.classList.remove('break-interval');
           document.body.classList.add('work-interval');
         }
-      } else if (intervals[currentInterval] === Interval['BREAK']) {
+      } else if (intervals[currentInterval] === Interval.BREAK) {
         if (!document.body.classList.contains('break-interval')) {
           document.body.classList.remove('work-interval');
           document.body.classList.add('break-interval');
