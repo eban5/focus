@@ -31,8 +31,8 @@
     ]
   },
   "build": {
-    "productName": "ElectronReact",
-    "appId": "org.erb.ElectronReact",
+    "productName": "Focus",
+    "appId": "org.erb.Fc",
     "asar": true,
     "asarUnpack": "**\\*.{node,dll}",
     "files": [
