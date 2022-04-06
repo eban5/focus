@@ -1,13 +1,20 @@
 {
-  "name": "electron-react-boilerplate",
-  "version": "4.5.0",
-  "description": "A foundation for scalable desktop apps",
+  "name": "focus",
+  "version": "0.2.0",
+  "description": "A pomodoro timer app built with Electron.",
   "main": "./dist/main/main.js",
-  "author": {
-    "name": "Electron React Boilerplate Maintainers",
-    "email": "electronreactboilerplate@gmail.com",
-    "url": "https://github.com/electron-react-boilerplate"
-  },
+  "contributors": [
+    {
+      "name": "Electron React Boilerplate Maintainers",
+      "email": "electronreactboilerplate@gmail.com",
+      "url": "https://github.com/electron-react-boilerplate"
+    },
+    {
+      "name": "Esteban Amas",
+      "email": "estebanamas@gmail.com",
+      "url": "https://github.com/eban5"
+    }
+  ],
   "scripts": {
     "electron-rebuild": "node -r ts-node/register ../../.erb/scripts/electron-rebuild.js",
     "link-modules": "node -r ts-node/register ../../.erb/scripts/link-modules.ts",
