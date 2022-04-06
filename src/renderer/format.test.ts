@@ -1,4 +1,4 @@
-import { toTitleCase } from './format';
+import toTitleCase from './format';
 
 describe('to title case', () => {
   it('should return Long Break when all lowercase', () => {
