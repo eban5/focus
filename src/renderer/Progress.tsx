@@ -1,3 +1,13 @@
+export const toTitleCase = (value: string): string => {
+  // split by whitespace
+  // capitalize first char of each word
+  // join and return
+  return value
+    .split(' ')
+    .map((word: string) => word.charAt(0).toUpperCase() + word.substring(1))
+    .join(' ');
+};
+
 const Progress = (props: {
   intervals: string[];
   currentInterval: number;
@@ -8,8 +18,7 @@ const Progress = (props: {
     <>
       {!isComplete && (
         <div className="interval-name">
-          {intervals[currentInterval].charAt(0).toUpperCase() +
-            intervals[currentInterval].substring(1)}
+          {toTitleCase(intervals[currentInterval])}
         </div>
       )}
       <div id="progress" className="progress">
