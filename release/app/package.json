@@ -1,6 +1,6 @@
 {
   "name": "focus",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "A pomodoro timer app built with Electron.",
   "main": "./dist/main/main.js",
   "contributors": [
