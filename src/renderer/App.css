@@ -6,6 +6,7 @@
 :root {
   --nepal: #94abbd;
   --blue-bayoux: #556e84;
+  --light-blue: #398ab9;
   --dark-purple: #313552;
   --concrete: #f3f3f3;
   --apricot: #e5926c;
@@ -171,6 +172,15 @@ body.break-interval {
     var(--nepal) -29.09%,
     var(--dark-purple) 51.77%,
     var(--dark-purple) 129.35%
+  );
+}
+
+body.break-interval-long {
+  background: linear-gradient(
+    200.96deg,
+    var(--nepal) -29.09%,
+    var(--light-blue) 51.77%,
+    var(--light-blue) 129.35%
   );
 }
 

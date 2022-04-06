@@ -4,26 +4,36 @@ import { useState, useEffect } from 'react';
 import { MemoryRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
 import Progress from './Progress';
-import Timer from './Timer';
 
-const WORK_SECONDS = 10; // 25 mins in seconds
-const BREAK_SECONDS = 5; // 5 mins in seconds
+const WORK_SECONDS = 1500; // 25 mins
+const SHORT_BREAK_SECONDS = 300; // 5 mins
+const LONG_BREAK_SECONDS = 1800; // 30 mins
 const intervals = [
   'work',
-  'break',
+  'short break',
   'work',
-  'break',
+  'short break',
   'work',
-  'break',
+  'short break',
   'work',
-  'break',
+  'short break',
   'work',
-  'break',
+  'long break',
+  'work',
+  'short break',
+  'work',
+  'short break',
+  'work',
+  'short break',
+  'work',
+  'short break',
+  'complete',
 ];
 
 enum Interval {
   WORK = 'work',
-  BREAK = 'break',
+  SHORT_BREAK = 'short break',
+  LONG_BREAK = 'long break',
   COMPLETE = 'complete',
 }
 
@@ -92,7 +102,7 @@ const Focus = () => {
 
   const nextInterval = (): void => {
     // reached end of work
-    if (currentInterval === 9) {
+    if (intervals[currentInterval] === Interval['COMPLETE']) {
       complete();
       return;
     }
@@ -121,10 +131,21 @@ const Focus = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       const timeInSeconds = Math.round(getTime() / 1000);
-      const secondsDisplay =
-        getInterval() === 'work'
-          ? WORK_SECONDS - timeInSeconds
-          : BREAK_SECONDS - timeInSeconds;
+      let secondsDisplay;
+      switch (getInterval()) {
+        case Interval['WORK']:
+          secondsDisplay = WORK_SECONDS - timeInSeconds;
+          break;
+        case Interval['SHORT_BREAK']:
+          secondsDisplay = SHORT_BREAK_SECONDS - timeInSeconds;
+          break;
+        case Interval['LONG_BREAK']:
+          secondsDisplay = LONG_BREAK_SECONDS - timeInSeconds;
+          break;
+        default:
+          secondsDisplay = 0;
+          break;
+      }
 
       // reached end of timer
       if (secondsDisplay === 0) nextInterval();
@@ -138,6 +159,7 @@ const Focus = () => {
   }, [start]);
 
   useEffect(() => {
+    console.log(isComplete, document.body.classList);
     if (isComplete) {
       document.body.classList.remove('work-interval');
       document.body.classList.remove('break-interval');
@@ -149,10 +171,15 @@ const Focus = () => {
           document.body.classList.remove('break-interval');
           document.body.classList.add('work-interval');
         }
-      } else if (intervals[currentInterval] === Interval.BREAK) {
+      } else if (intervals[currentInterval] === Interval.SHORT_BREAK) {
         if (!document.body.classList.contains('break-interval')) {
           document.body.classList.remove('work-interval');
           document.body.classList.add('break-interval');
+        }
+      } else if (intervals[currentInterval] === Interval.LONG_BREAK) {
+        if (!document.body.classList.contains('break-interval')) {
+          document.body.classList.remove('work-interval');
+          document.body.classList.add('break-interval-long');
         }
       }
     }
@@ -180,7 +207,9 @@ const Focus = () => {
         </div>
       ) : (
         <>
-          <Timer time={timer} />
+          <div id="timer" className="timer">
+            {timer}
+          </div>
           <div className="buttons">
             <button id="start" className="btn" type="button" onClick={start}>
               Start
