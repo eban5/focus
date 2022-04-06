@@ -120,12 +120,22 @@ const Focus = () => {
     setCurrentInterval(0);
     reset();
     setIsComplete(false);
+
+    document.body.className = '';
   };
 
   const getTime = (): number => {
     if (!startTime) return 0;
     if (isRunning) return overallTime + getTimeElapsedSinceLastStart(startTime);
     return overallTime;
+  };
+
+  const replaceClass = (className: string): void => {
+    // clear all classes on the body element
+    document.body.className = '';
+
+    // add the desired classname
+    document.body.classList.add(className);
   };
 
   useEffect(() => {
@@ -159,28 +169,19 @@ const Focus = () => {
   }, [start]);
 
   useEffect(() => {
-    console.log(isComplete, document.body.classList);
     if (isComplete) {
-      document.body.classList.remove('work-interval');
-      document.body.classList.remove('break-interval');
-      document.body.classList.add('complete');
+      replaceClass('complete');
     } else if (!isComplete) {
-      document.body.classList.remove('complete');
-      if (intervals[currentInterval] === Interval.WORK) {
-        if (!document.body.classList.contains('work-interval')) {
-          document.body.classList.remove('break-interval');
-          document.body.classList.add('work-interval');
-        }
-      } else if (intervals[currentInterval] === Interval.SHORT_BREAK) {
-        if (!document.body.classList.contains('break-interval')) {
-          document.body.classList.remove('work-interval');
-          document.body.classList.add('break-interval');
-        }
-      } else if (intervals[currentInterval] === Interval.LONG_BREAK) {
-        if (!document.body.classList.contains('break-interval')) {
-          document.body.classList.remove('work-interval');
-          document.body.classList.add('break-interval-long');
-        }
+      switch (intervals[currentInterval]) {
+        case Interval.WORK:
+          replaceClass('work-interval');
+          break;
+        case Interval.SHORT_BREAK:
+          replaceClass('break-interval');
+          break;
+        case Interval.LONG_BREAK:
+          replaceClass('break-interval-long');
+          break;
       }
     }
   }, [nextInterval]);
