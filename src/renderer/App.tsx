@@ -27,7 +27,7 @@ enum Interval {
   COMPLETE = 'complete',
 }
 
-const Hello = () => {
+const Focus = () => {
   // https://stackoverflow.com/a/57981688
   const [timer, setTimer] = useState<string>('0:00');
   const [isRunning, setIsRunning] = useState<boolean>(false);
@@ -143,6 +143,7 @@ const Hello = () => {
       document.body.classList.remove('break-interval');
       document.body.classList.add('complete');
     } else if (!isComplete) {
+      document.body.classList.remove('complete');
       if (intervals[currentInterval] === Interval.WORK) {
         if (!document.body.classList.contains('work-interval')) {
           document.body.classList.remove('break-interval');
@@ -216,7 +217,7 @@ export default function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Hello />} />
+        <Route path="/" element={<Focus />} />
       </Routes>
     </Router>
   );
