@@ -1,4 +1,4 @@
-import { toTitleCase } from './format';
+import toTitleCase from './format';
 
 const Progress = (props: {
   intervals: string[];
