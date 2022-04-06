@@ -6,6 +6,7 @@ const Progress = (props: {
   isComplete: boolean;
 }) => {
   const { intervals, currentInterval, isComplete } = props;
+
   return (
     <>
       {!isComplete && (

@@ -102,7 +102,7 @@ const Focus = () => {
 
   const nextInterval = (): void => {
     // reached end of work
-    if (intervals[currentInterval] === Interval['COMPLETE']) {
+    if (intervals[currentInterval] === Interval.COMPLETE) {
       complete();
       return;
     }
@@ -143,13 +143,13 @@ const Focus = () => {
       const timeInSeconds = Math.round(getTime() / 1000);
       let secondsDisplay;
       switch (getInterval()) {
-        case Interval['WORK']:
+        case Interval.WORK:
           secondsDisplay = WORK_SECONDS - timeInSeconds;
           break;
-        case Interval['SHORT_BREAK']:
+        case Interval.SHORT_BREAK:
           secondsDisplay = SHORT_BREAK_SECONDS - timeInSeconds;
           break;
-        case Interval['LONG_BREAK']:
+        case Interval.LONG_BREAK:
           secondsDisplay = LONG_BREAK_SECONDS - timeInSeconds;
           break;
         default:
@@ -181,6 +181,9 @@ const Focus = () => {
           break;
         case Interval.LONG_BREAK:
           replaceClass('break-interval-long');
+          break;
+        default:
+          replaceClass('');
           break;
       }
     }
